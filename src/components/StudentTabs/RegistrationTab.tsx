@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
-import { User, BookOpen, Trophy, Star, FileCheck, Check } from 'lucide-react';
+import { User, BookOpen, ClipboardCheck, Star, FileCheck, Check } from 'lucide-react';
 import { supabase } from '../../lib/supabase';
 import PersonalDetailsForm from './RegistrationForms/PersonalDetailsForm';
 import AcademicDetailsForm from './RegistrationForms/AcademicDetailsForm';
 import ExtracurricularForm from './RegistrationForms/ExtracurricularForm';
-import AchievementsForm from './RegistrationForms/AchievementsForm';
+import ScreeningTestForm from './RegistrationForms/ScreeningTestForm';
 import DocumentUploadForm from './RegistrationForms/DocumentUploadForm';
 
 interface RegistrationTabProps {
@@ -13,7 +13,7 @@ interface RegistrationTabProps {
 }
 
 export default function RegistrationTab({ studentId, onProgressUpdate }: RegistrationTabProps) {
-  const [activeSubTab, setActiveSubTab] = useState<'personal' | 'academic' | 'extracurricular' | 'achievements' | 'documents'>('personal');
+  const [activeSubTab, setActiveSubTab] = useState<'personal' | 'academic' | 'extracurricular' | 'screening' | 'documents'>('personal');
   const [personalComplete, setPersonalComplete] = useState(false);
   const [academicComplete, setAcademicComplete] = useState(false);
 
@@ -48,7 +48,7 @@ export default function RegistrationTab({ studentId, onProgressUpdate }: Registr
     { id: 'personal', label: 'Personal Details', complete: personalComplete, icon: <User className="w-8 h-8" /> },
     { id: 'academic', label: 'Academic Details', complete: academicComplete, icon: <BookOpen className="w-8 h-8" /> },
     { id: 'extracurricular', label: 'Extracurricular', complete: false, icon: <Star className="w-8 h-8" /> },
-    { id: 'achievements', label: 'Achievements', complete: false, icon: <Trophy className="w-8 h-8" /> },
+    { id: 'screening', label: 'Screening Test', complete: false, icon: <ClipboardCheck className="w-8 h-8" /> },
     { id: 'documents', label: 'Documents', complete: false, icon: <FileCheck className="w-8 h-8" /> },
   ];
 
@@ -96,7 +96,7 @@ export default function RegistrationTab({ studentId, onProgressUpdate }: Registr
           />
         )}
         {activeSubTab === 'extracurricular' && <ExtracurricularForm studentId={studentId} />}
-        {activeSubTab === 'achievements' && <AchievementsForm studentId={studentId} />}
+        {activeSubTab === 'screening' && <ScreeningTestForm studentId={studentId} />}
         {activeSubTab === 'documents' && (
           <DocumentUploadForm
             studentId={studentId}
