@@ -19,6 +19,40 @@ function App() {
     '/indian-school-students-sitting-gruops-600nw-2668323179.webp'
   ];
 
+  const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+  const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+
+  if (!supabaseUrl || !supabaseAnonKey) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-red-50 to-yellow-50 flex items-center justify-center p-8">
+        <div className="max-w-2xl bg-white rounded-2xl shadow-2xl p-8 text-center border-4 border-red-500">
+          <div className="text-6xl mb-6">⚠️</div>
+          <h1 className="text-3xl font-bold text-gray-900 mb-4">Configuration Required</h1>
+          <div className="bg-red-50 border-2 border-red-200 rounded-lg p-6 mb-6">
+            <p className="text-gray-800 mb-4 font-semibold">
+              Supabase environment variables are not loaded.
+            </p>
+            <p className="text-gray-700 text-sm mb-2">
+              The dev server needs to be restarted to load the configuration.
+            </p>
+          </div>
+          <div className="bg-gray-50 rounded-lg p-4 text-left text-sm">
+            <p className="font-semibold text-gray-700 mb-2">Environment Status:</p>
+            <p className="text-gray-600">
+              VITE_SUPABASE_URL: <span className="font-mono text-red-600">{supabaseUrl ? 'Set' : 'Missing'}</span>
+            </p>
+            <p className="text-gray-600">
+              VITE_SUPABASE_ANON_KEY: <span className="font-mono text-red-600">{supabaseAnonKey ? 'Set' : 'Missing'}</span>
+            </p>
+          </div>
+          <p className="text-sm text-gray-500 mt-6">
+            Please restart the development server to continue.
+          </p>
+        </div>
+      </div>
+    );
+  }
+
   useEffect(() => {
     checkAuthState();
   }, []);
